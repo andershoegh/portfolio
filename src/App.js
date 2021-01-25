@@ -1,23 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./Home";
+import Nav from "./Nav";
+import About from "./About";
+import Resume from "./Resume";
+import ProjectCards from "./ProjectCards";
+import Lumen from "./Lumen";
+import TouchlessInteractions from "./TouchlessInteractions";
+import Craft from "./Craft";
+import Garden from "./Garden";
+import Footer from "./Footer";
+import ScrollToTop from "./ScrollToTop";
+import { Fragment } from "react";
+import NoPhone from "./NoPhone";
+import { polyfill } from "seamless-scroll-polyfill";
+polyfill();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`app  max-w-screen-lg mx-auto`}>
+      <div className="lg:block hidden">
+        <Router>
+          <Fragment>
+            <ScrollToTop>
+              <Nav />
+              <Switch>
+                <Route path="/about">
+                  <About />
+                </Route>
+
+                <Route path="/resume">
+                  <Resume />
+                </Route>
+
+                <Route path="/touchlessInteractions">
+                  <TouchlessInteractions />
+                </Route>
+                <Route path="/craft">
+                  <Craft />
+                </Route>
+                <Route path="/garden">
+                  <Garden />
+                </Route>
+                <Route path="/lumen">
+                  <Lumen />
+                </Route>
+
+                <Route path="/">
+                  <Home />
+                  {/* <Lumen /> */}
+                  <ProjectCards />
+                </Route>
+              </Switch>
+              <Footer />
+            </ScrollToTop>
+          </Fragment>
+        </Router>
+      </div>
+      <div className="lg:hidden">
+        <NoPhone />
+      </div>
     </div>
   );
 }
