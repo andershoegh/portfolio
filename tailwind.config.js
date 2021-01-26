@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ["Raleway"],
-      body: ["Open Sans"],
+      body: ["Lato"],
     },
     colors: {
       transparent: "transparent",

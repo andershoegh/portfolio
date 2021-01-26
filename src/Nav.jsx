@@ -9,7 +9,7 @@ import { useStickyState } from "./utils";
 
 const Nav = () => {
   const [selected, setSelected] = useStickyState("Work", "nav");
-  const border = "1px solid #2BB0ED";
+  const border = "1px solid #CBD2D9";
   const animation = {
     type: "spring",
     duration: 0.3,
@@ -18,46 +18,23 @@ const Nav = () => {
   };
 
   const linkedInIcon = (
-    <FontAwesomeIcon
-      icon={faLinkedin}
-      size="2x"
-      className=""
-      style={{ color: "#2867B2" }}
-    />
+    <FontAwesomeIcon icon={faLinkedin} size="2x" className="text-coolGrey200" />
   );
 
   return (
     <div className=" font-display w-full mt-20 flex justify-between items-center">
-      <div className="flex items-center">
+      <div className="flex items-center w-40">
         <Link
           to="/"
           onClick={() => setSelected("Work")}
           style={{ color: "white" }}
-          className="  bg-lightBlueVivid800 font-display font-bold text-lg flex justify-center items-center  rounded-full h-16 w-16"
+          className=" font-medium text-2xl"
         >
-          AHH
+          ahh
         </Link>
-
-        <div className="ml-6">
-          <a
-            href="https://www.linkedin.com/in/ahh-1/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {linkedInIcon}
-          </a>
-        </div>
-        <div className="ml-6">
-          <a href="mailto:anders.hoegh.hansen@gmail.com">
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              size="2x"
-              style={{ color: "#2867B2" }}
-            />
-          </a>
-        </div>
       </div>
-      <div className="flex justify-items-end my-auto">
+
+      <div className="flex justify-items-center mt-4   my-auto">
         <motion.div className="flex text-sm">
           <AnimateSharedLayout>
             <div className="">
@@ -134,6 +111,23 @@ const Nav = () => {
             </div>
           </AnimateSharedLayout>
         </motion.div>
+      </div>
+
+      <div className="justify-items-end w-40 flex">
+        <div className="ml-6">
+          <a
+            href="https://www.linkedin.com/in/ahh-1/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {linkedInIcon}
+          </a>
+        </div>
+        <div className="ml-6 text-coolGrey200">
+          <a href="mailto:anders.hoegh.hansen@gmail.com">
+            <FontAwesomeIcon icon={faEnvelope} size="2x" />
+          </a>
+        </div>
       </div>
     </div>
   );

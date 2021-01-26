@@ -7,7 +7,7 @@ import Resume from "./Resume";
 import ProjectCards from "./ProjectCards";
 import Lumen from "./Lumen";
 import TouchlessInteractions from "./TouchlessInteractions";
-import Craft from "./Craft";
+import UIPlayground from "./UIPlayground";
 import Garden from "./Garden";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
@@ -37,7 +37,7 @@ function App() {
                   <TouchlessInteractions />
                 </Route>
                 <Route path="/craft">
-                  <Craft />
+                  <UIPlayground />
                 </Route>
                 <Route path="/garden">
                   <Garden />

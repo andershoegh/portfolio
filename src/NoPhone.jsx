@@ -2,7 +2,7 @@ import React from "react";
 
 const NoPhone = () => {
   return (
-    <div className="my-32 text-center">
+    <div className="my-32 text-center text-coolGrey100">
       <div className="text-lg mb-6">👋🏼 Hey!</div>
       <div className="text-sm mb-4">
         Sorry - but my portfolio is not yet ready for mobile sizes.

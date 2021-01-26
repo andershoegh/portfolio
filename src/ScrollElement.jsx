@@ -28,7 +28,7 @@ const ScrollElement = ({ strokeColor }) => {
         <motion.div
           transition={{ type: "spring", duration: 1 }}
           animate={{ y: "40px" }}
-          style={{ left: "10vw", top: "20vh" }}
+          style={{ left: "7vw", top: "20vh" }}
           className={`fixed flex flex-col justify-center mx-auto`}
         >
           <div className="text-center mb-2">
