@@ -12,24 +12,23 @@ import {
 
 const TouchlessInteractions = () => {
   return (
-    <div className="w-full px-24 justify-center flex  mb-52 font-light text-coolGrey200 font-body">
-      <div className="mt-24 ">
-        <ScrollElement strokeColor={"#EF4E4E"} />
-
+    <div className="w-full lg:px-24 justify-center flex  mb-52 font-light text-coolGrey200 font-body">
+      <ScrollElement strokeColor={"#EF4E4E"} />
+      <div className="mt-24 w-full">
         <div className="text-xl text-coolGrey400 font-medium font-display">
           Overview
         </div>
-        <div className="text-5xl mt-4 text-redVivid400 font-display">
+        <div className="text-4xl lg:text-5xl mt-4 text-redVivid400 font-display">
           Touchless Interactions in a COVID-19 pandemic
         </div>
-        <div className="text-xl mt-12 leading-relaxed font-display">
+        <div className="text-xl mt-6 lg:mt-12 leading-relaxed font-display">
           Being mindful of what you touch and where you put hands next is top of
           mind. People are finding new, extremely imaginative, ways to avoid
           touching surfaces. In this project we focus on the{" "}
           <span>public touch display</span>, one of the most frequented surfaces
           in cities today.
         </div>
-        <div className="grid grid-cols-2 w-1/2 mt-16">
+        <div className="grid grid-cols-2 lg:w-1/2 mt-10 lg:mt-16">
           <div className="font-semibold text-xl font-display  mb-2 text-coolGrey300">
             Role
           </div>
@@ -85,16 +84,16 @@ const TouchlessInteractions = () => {
             width="700"
             height="415"
             src="https://www.youtube.com/embed/moDj9fJNekU"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           />
         </div>
         <div className="text-xl mt-12 leading-relaxed">
           There are two prototypes at play here:
         </div>
 
-        <div className="grid-cols-2 gap-x-7 grid mt-8">
+        <div className="hidden lg:grid grid-cols-2 gap-x-7 mt-8">
           <div className="text-xl text-coolGrey400 font-medium mb-2">
             Smartphone
           </div>
@@ -111,6 +110,26 @@ const TouchlessInteractions = () => {
             sliding and tapping.
           </div>
         </div>
+
+        <div className="lg:hidden mt-8">
+          <div className="text-xl text-coolGrey400 font-medium mb-2">
+            Smartphone
+          </div>
+          <div className="text-xl leading-relaxed">
+            A prototype that accepts modern input micro-interactions like
+            sliding and tapping.
+          </div>
+
+          <div className="text-xl text-coolGrey400 font-medium mt-8 mb-2">
+            Display
+          </div>
+          <div className="text-xl leading-relaxed">
+            A mock prototype that imitates a restaurant ordering kiosk. The base
+            system translates specific commands into navigation in the grid
+            based design.
+          </div>
+        </div>
+
         <div className="text-xl mt-12 leading-relaxed">
           In the spring we will be looking into other interaction input types
           like:
@@ -199,7 +218,7 @@ const TouchlessInteractions = () => {
           ideation.
         </div>
         <div className="flex justify-center my-10">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img
               src={touchless_miro}
               className=""
@@ -229,19 +248,19 @@ const TouchlessInteractions = () => {
           two prototypes.
         </div>
 
-        <div className="grid grid-cols-2 place-items-center my-16">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center mt-12 lg:my-16">
+          <div className="mb-6 lg:mb-0">
             <div className="text-xl font-medium font-display text-redVivid400">
               Display system
             </div>
-            <div className="text-xl leading-relaxed w-80">
+            <div className="text-xl leading-relaxed lg:w-80">
               The display system is a web appli-cation developed in React. Its
               only purpose is to be a dummy system that allows users to control
               it through a range of touchless interaction types.
             </div>
           </div>
           <div>
-            <Zoom>
+            <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
               <img
                 src={touchless_3}
                 className=""
@@ -252,19 +271,19 @@ const TouchlessInteractions = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 place-items-center mt-24 mb-16">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center mt-24 mb-16">
+          <div className="mb-6 lg:mb-0">
             <div className="text-xl font-display font-medium text-redVivid400 ">
               Smartphone-as-a-controller
             </div>
-            <div className="text-xl leading-relaxed w-80">
+            <div className="text-xl leading-relaxed lg:w-80">
               The smartphone application is a React application with a large
               area for using the navigation controls. The user can select by
               tapping and navigate up, down, left and right by swiping.
             </div>
           </div>
           <div>
-            <Zoom>
+            <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
               <img
                 src={touchless_6}
                 className=""
@@ -288,12 +307,13 @@ const TouchlessInteractions = () => {
             />
           </a>
         </div>
-        <div className="text-center mt-3">
+        <div className="lg:text-center mt-3">
           You'll need to right-click the page{" "}
           <FontAwesomeIcon icon={faLongArrowAltRight} className="mx-1" />{" "}
           inspect it{" "}
           <FontAwesomeIcon icon={faLongArrowAltRight} className="mx-1" /> toggle
-          the device for iPad sizes
+          the device for iPad sizes.{" "}
+          <span className="lg:hidden">You can only do this on desktops.</span>
         </div>
 
         <div className="text-3xl mt-24 text-redVivid400 leading-relaxed">

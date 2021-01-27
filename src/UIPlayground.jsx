@@ -8,10 +8,10 @@ import ScrollElement from "./ScrollElement";
 
 const UIPlayground = () => {
   return (
-    <div className="w-full px-24 justify-center texl-xl flex  mb-52 font-light text-coolGrey200 font-body">
-      <div className="mt-24 ">
+    <div className="w-full lg:px-24 justify-center flex  mb-52 font-light text-coolGrey200 font-body">
+      <ScrollElement strokeColor={"#1992D4"} />
+      <div className="mt-24 w-full">
         {/* <div className="sm:mx-10 md:mx-20 lg:mx-36 xl:mx-44 mt-24"> */}
-        <ScrollElement strokeColor={"#1992D4"} />
         <div className=" text-4xl font-display text-coolGrey100 mb-2 font-medium">
           UI playground
         </div>
@@ -46,7 +46,7 @@ const UIPlayground = () => {
           craftsmen to go and work on.
         </div>
 
-        <div className="mb-10">
+        <div className="mb-10 hidden lg:block">
           <iframe
             title="Prototype"
             style={{
@@ -57,6 +57,22 @@ const UIPlayground = () => {
             src={`https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FrAXOJLzyUJAqRMDzKawjqq%2FProject-X%3Fnode-id%3D1%253A19%26scaling%3Dscale-down`}
             allowfullscreen
           ></iframe>
+        </div>
+
+        <div className="mb-10 mt-10 lg:hidden">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="text-md mb-10 text-xl text-lightBlueVivid400 font-medium"
+            href="https://www.figma.com/proto/rAXOJLzyUJAqRMDzKawjqq/Project-X?node-id=1%3A19&viewport=877%2C139%2C0.08101356029510498&scaling=scale-down"
+          >
+            Try the prototype
+            <FontAwesomeIcon
+              icon={faExternalLinkAlt}
+              size="1x"
+              className=" text-lightBlueVivid400 ml-2"
+            ></FontAwesomeIcon>
+          </a>
         </div>
 
         <div className="mb-10">

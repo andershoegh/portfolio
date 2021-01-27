@@ -4,11 +4,11 @@ import picture from "./images/self.jpg";
 const About = () => {
   return (
     <div className=" w-full  justify-center">
-      <div className="mx-24 mt-24 mb-16 font-light leading-relaxed text-coolGrey100">
+      <div className="lg:mx-24 mx-2 mt-32 lg:mt-24 mb-16 font-light leading-relaxed text-coolGrey100">
         <div className="text-center  font-display text-5xl font-bold mb-16">
           👋🏼 Hey!
         </div>
-        <div className="grid grid-cols-2 place-items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center">
           <div className="">
             <div className=" mb-4">
               My name is Anders. I'm a Interaction Design student at AAU.

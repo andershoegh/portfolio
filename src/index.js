@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <div className=" mx-24">
+    <div className="mx-4 lg:mx-24">
       <App />
     </div>
   </React.StrictMode>,

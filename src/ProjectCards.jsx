@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,7 +6,6 @@ import {
   faPen,
   faArrowRight,
   faTimes,
-  faLongArrowAltRight,
   faViruses,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -14,17 +13,18 @@ import iPadTouchless from "./images/touchless_3.png";
 import uip_1 from "./images/uip_1.png";
 import lumen_1 from "./images/lumen_1.png";
 import fixdLogo from "./images/fixd.png";
-import { useStickyState } from "./utils";
 import dynawayLogo from "./images/dynaway.svg";
 import dynawayMobile from "./images/dynaway_mobile.png";
 import ixdexpo from "./images/ixdexpo.jpg";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 const ProjectCards = () => {
-  const [openTouchless, setOpenTouchless] = useStickyState(false, "touchless");
-  const [openUIPlayground, setOpenUIPlayground] = useStickyState(false, "uip");
-  const [openLumen, setOpenLumen] = useStickyState(false, "lumen");
-  const [openDynaway, setOpenDynaway] = useStickyState(false, "dynaway");
-  const [openFixD, setOpenFixD] = useStickyState(false, "fixd");
+  const [openTouchless, setOpenTouchless] = useState(false);
+  const [openUIPlayground, setOpenUIPlayground] = useState(false);
+  const [openLumen, setOpenLumen] = useState(false);
+  const [openDynaway, setOpenDynaway] = useState(false);
+  const [openFixD, setOpenFixD] = useState(false);
 
   const touchlessInteractionIcon = (
     <FontAwesomeIcon
@@ -99,10 +99,20 @@ const ProjectCards = () => {
   const fixdRef = useRef();
 
   function scrollToTargetAdjusted(ref) {
-    setTimeout(
-      () => ref.current.scrollIntoView({ behavior: "smooth", block: "center" }),
-      5
-    );
+    // lav check om størrelse på skærm for at vurdere hvor der skal srolles hen
+    if (window.screen.width < 1024) {
+      setTimeout(
+        () =>
+          ref.current.scrollIntoView({ behavior: "smooth", block: "start" }),
+        5
+      );
+    } else {
+      setTimeout(
+        () =>
+          ref.current.scrollIntoView({ behavior: "smooth", block: "center" }),
+        5
+      );
+    }
   }
 
   const renderTouchlessInteractions = () => {
@@ -110,7 +120,7 @@ const ProjectCards = () => {
       <AnimateSharedLayout>
         <motion.div
           ref={touchlessRef}
-          className={`${openTouchless ? "col-span-2" : "col-span-1"}`}
+          className={`${openTouchless ? "lg:col-span-2" : "lg:col-span-1"}`}
         >
           {openTouchless ? (
             <motion.div
@@ -118,8 +128,7 @@ const ProjectCards = () => {
                 type: "spring",
                 duration: 0.5,
               }}
-              className={`${touchlessBackgroundColor} 
-            } font-body font-medium col-span-2  rounded-sm place-items-center w-full place-content-between flex`}
+              className={`${touchlessBackgroundColor} font-body font-light col-span-2 pb-4 lg:pb-0 place-items-center w-full place-content-between lg:flex`}
               layoutId="expandable-card"
             >
               <AnimatePresence exitBeforeEnter>
@@ -127,20 +136,20 @@ const ProjectCards = () => {
                   key="touchlessOpen"
                   transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
                   animate={{ opacity: 1 }}
-                  className={`opacity-0 w-2/3 h-full max-h-full rounded-sm font-normal flex my-auto ${touchlessBackgroundColor} ${textColorGrey900}`}
+                  className={`opacity-0 mx-6 lg:w-2/3 h-full max-h-full flex my-auto ${touchlessBackgroundColor} ${textColorGrey900}`}
                 >
                   <motion.div
-                    className={`rounded-l-sm h-full content-center  rounded-r-3xl ${touchlessBackgroundColor} ${textColorGrey900} rounded-r-sm pl-16 py-10 `}
+                    className={`pt-6  h-full content-center ${touchlessBackgroundColor} ${textColorGrey900} lg:pl-16 lg:py-10 `}
                   >
                     <FontAwesomeIcon
                       icon={faTimes}
                       size="1x"
-                      className={`${touchlessBackgroundColor} cursor-pointer `}
+                      className={`${touchlessBackgroundColor}  cursor-pointer`}
                       onClick={() => setOpenTouchless(false)}
                     />
                     {/* Card left content */}
                     <motion.div
-                      className={`text-center ${touchlessBackgroundColor} mb-6`}
+                      className={`text-center mt-4 lg:mt-0 ${touchlessBackgroundColor} mb-6`}
                     >
                       <FontAwesomeIcon
                         icon={faViruses}
@@ -174,11 +183,7 @@ const ProjectCards = () => {
                     <motion.div className={`${touchlessBackgroundColor}  mb-3`}>
                       A system that allows users to use their smartphone as the
                       controller for the touch display. We created a mock
-                      restaurant kiosk system to test with
-                      <FontAwesomeIcon
-                        className={`${touchlessBackgroundColor} ml-2`}
-                        icon={faLongArrowAltRight}
-                      ></FontAwesomeIcon>
+                      restaurant kiosk system to test with.
                     </motion.div>
                     <motion.div
                       className={`${touchlessBackgroundColor}  text-xs font-extrabold`}
@@ -188,7 +193,10 @@ const ProjectCards = () => {
                     <motion.div className={`${touchlessBackgroundColor}`}>
                       Initial designs, research, ideation, developing.
                     </motion.div>
-                    <Link className={``} to="/touchlessInteractions">
+                    <Link
+                      className={`hidden mt-10 ${touchlessBackgroundColor} lg:block`}
+                      to="/touchlessInteractions"
+                    >
                       <motion.button
                         whileHover={{ scale: 1.05, type: "spring" }}
                         className={`shadow-lg bg-redVivid400 place-items-center rounded-lg ${textColorGrey050} flex text-base rounded-sm py-3 font-medium px-8 mt-10 mx-auto`}
@@ -207,20 +215,43 @@ const ProjectCards = () => {
                 </motion.div>
 
                 <motion.div
-                  className={`h-full flex place-content-center lg:px-16 px-16 rounded-r-sm ${touchlessBackgroundColor} `}
+                  className={`h-full lg:flex place-content-center mt-10 lg:mt-0 lg:pr-16 lg:pl-8 px-10 lg:mb-0 mb-6 ${touchlessBackgroundColor} `}
                 >
                   <motion.div
                     transition={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    className={`relative opacity-1 flex place-self-center  ${touchlessBackgroundColor} `}
+                    className={`relative opacity-1 justify-center flex place-self-center  ${touchlessBackgroundColor} `}
                   >
-                    <img
-                      src={iPadTouchless}
-                      width="550px"
-                      className={`${touchlessBackgroundColor} h-full`}
-                      alt="ipad screenshot"
-                    />
+                    <Zoom
+                      overlayBgColorEnd="#0c0c0c"
+                      overlayBgColorStart="#0c0c0c"
+                    >
+                      <img
+                        src={iPadTouchless}
+                        width="480px"
+                        className={`${touchlessBackgroundColor} mx-auto h-full`}
+                        alt="ipad screenshot"
+                      />
+                    </Zoom>
                   </motion.div>
+                  <Link
+                    className={`lg:hidden mb-6`}
+                    to="/touchlessInteractions"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.05, type: "spring" }}
+                      className={`shadow-lg bg-redVivid400 place-items-center rounded-lg ${textColorGrey050} flex text-base rounded-sm py-3 font-medium px-8 mt-6 mx-auto`}
+                    >
+                      <motion.span className={`bg-redVivid400`}>
+                        Read more
+                      </motion.span>
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        size="1x"
+                        className={`ml-4 bg-redVivid400 `}
+                      />
+                    </motion.button>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -238,7 +269,7 @@ const ProjectCards = () => {
                 onClick={() => scrollToTargetAdjusted(touchlessRef)}
                 layoutId="expandable-card"
                 animate="rest"
-                className={`relative h-96 font-display cursor-pointer rounded-sm ${touchlessBackgroundColor} flex place-content-center items-center`}
+                className={`relative h-72 lg:h-96 font-display cursor-pointer ${touchlessBackgroundColor} flex place-content-center items-center`}
               >
                 {/* <span
                   ref={touchlessRef}
@@ -255,14 +286,14 @@ const ProjectCards = () => {
                 </motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute text-xl  ${touchlessBackgroundColor} ${textColorGrey050} mx-5  text-center font-semibold`}
+                  className={`hidden lg:block absolute text-xl  ${touchlessBackgroundColor} ${textColorGrey050} mx-5  text-center font-semibold`}
                   style={{ bottom: "90px", margin: "0 auto" }}
                 >
                   Touchless Interactions
                 </motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute mx-10 ${touchlessBackgroundColor} ${textColorGrey050} text-center  font-medium text-sm`}
+                  className={`hidden lg:block absolute mx-10 ${touchlessBackgroundColor} ${textColorGrey050} text-center  font-medium text-sm`}
                   style={{ bottom: "55px", margin: "0 auto" }}
                 >
                   Getting COVID-19 from a public touch display? No thanks.
@@ -280,7 +311,7 @@ const ProjectCards = () => {
       <AnimateSharedLayout>
         <motion.div
           ref={uipRef}
-          className={`${openUIPlayground ? "col-span-2" : "col-span-1"}`}
+          className={`${openUIPlayground ? "lg:col-span-2" : "lg:col-span-1"}`}
         >
           {openUIPlayground ? (
             <motion.div
@@ -288,7 +319,7 @@ const ProjectCards = () => {
                 type: "spring",
                 duration: 0.5,
               }}
-              className={`${UIPlaygroundBackgroundColor}  font-body font-medium col-span-2 rounded-sm place-items-center w-full place-content-between flex`}
+              className={`${UIPlaygroundBackgroundColor}  font-body font-light col-span-2 place-items-center w-full place-content-between lg:flex`}
               layoutId="expandable-card"
             >
               <AnimatePresence exitBeforeEnter>
@@ -296,10 +327,10 @@ const ProjectCards = () => {
                   key="uipOpen"
                   transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
                   animate={{ opacity: 1 }}
-                  className={`opacity-0 w-2/3 h-full max-h-full rounded-sm flex my-auto ${UIPlaygroundBackgroundColor} ${textColorGrey900}`}
+                  className={`opacity-0 lg:w-2/3 h-full mx-6 lg:mx-0 max-h-full lg:flex my-auto ${UIPlaygroundBackgroundColor} ${textColorGrey900}`}
                 >
                   <motion.div
-                    className={`  rounded-sm font-normal ${UIPlaygroundBackgroundColor} ${textColorGrey900} px-16 py-10 max-h-full`}
+                    className={`pt-6  h-full content-center ${touchlessBackgroundColor} ${textColorGrey900} lg:pl-20 lg:py-10 `}
                   >
                     <FontAwesomeIcon
                       icon={faTimes}
@@ -308,7 +339,7 @@ const ProjectCards = () => {
                       onClick={() => setOpenUIPlayground(false)}
                     />
                     <motion.div
-                      className={`text-center ${UIPlaygroundBackgroundColor} mb-6`}
+                      className={`text-center ${UIPlaygroundBackgroundColor} mt-4 mb-6`}
                     >
                       <FontAwesomeIcon
                         icon={faPen}
@@ -353,7 +384,10 @@ const ProjectCards = () => {
                       I'm continually practicing UI design and would love
                       feedback if you have any!
                     </motion.div>
-                    <Link className={``} to="/craft">
+                    <Link
+                      className={`hidden lg:block ${UIPlaygroundBackgroundColor}`}
+                      to="/craft"
+                    >
                       <motion.button
                         whileHover={{ scale: 1.05, type: "spring" }}
                         className={`shadow-lg bg-lightBlueVivid600 rounded-lg place-items-center ${textColorGrey050} flex mx-auto rounded-sm py-3 px-7 mt-12`}
@@ -372,20 +406,41 @@ const ProjectCards = () => {
                 </motion.div>
 
                 <motion.div
-                  className={`h-full flex place-content-center py-10 pr-12 rounded-r-sm ${UIPlaygroundBackgroundColor} `}
+                  className={`h-full lg:flex place-content-center py-10 lg:pr-12 ${UIPlaygroundBackgroundColor} `}
                 >
                   <motion.div
                     transition={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    className={` opacity-0  items-start place-self-center  ${UIPlaygroundBackgroundColor} `}
+                    className={` opacity-0 items-start flex justify-center place-self-center  ${UIPlaygroundBackgroundColor} `}
                   >
-                    <img
-                      src={uip_1}
-                      width="270px"
-                      className={`${UIPlaygroundBackgroundColor} h-full`}
-                      alt=""
-                    />
+                    <Zoom
+                      overlayBgColorEnd="#0c0c0c"
+                      overlayBgColorStart="#0c0c0c"
+                      className="mx-auto h-full"
+                    >
+                      <img
+                        src={uip_1}
+                        width="270px"
+                        className={`${UIPlaygroundBackgroundColor} mx-auto pr-2  h-full`}
+                        alt=""
+                      />
+                    </Zoom>
                   </motion.div>
+                  <Link className={`lg:hidden`} to="/craft">
+                    <motion.button
+                      whileHover={{ scale: 1.05, type: "spring" }}
+                      className={`shadow-lg bg-lightBlueVivid600 rounded-lg place-items-center ${textColorGrey050} flex mx-auto rounded-sm py-3 px-7 mt-12`}
+                    >
+                      <motion.span className={`bg-lightBlueVivid600`}>
+                        Explore
+                      </motion.span>
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        size="1x"
+                        className={`ml-4 bg-lightBlueVivid600`}
+                      />
+                    </motion.button>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -403,179 +458,22 @@ const ProjectCards = () => {
                 onClick={() => scrollToTargetAdjusted(uipRef)}
                 animate="rest"
                 layoutId="expandable-card"
-                className={`${UIPlaygroundBackgroundColor} relative cursor-pointer font-display h-96 rounded-sm flex place-content-center items-center`}
+                className={`${UIPlaygroundBackgroundColor} relative cursor-pointer font-display h-72 lg:h-96 flex place-content-center items-center`}
               >
                 <motion.span variants={iconMotion}>{penIcon}</motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute text-xl  mx-5 text-center font-semibold ${textColorGrey050} ${UIPlaygroundBackgroundColor} `}
+                  className={`hidden lg:block absolute text-xl  mx-5 text-center font-semibold ${textColorGrey050} ${UIPlaygroundBackgroundColor} `}
                   style={{ bottom: "90px", margin: "0 auto" }}
                 >
                   UI playground
                 </motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute mx-10 ${UIPlaygroundBackgroundColor} text-center ${textColorGrey050} font-medium text-sm `}
+                  className={`hidden lg:block absolute mx-10 ${UIPlaygroundBackgroundColor} text-center ${textColorGrey050} font-medium text-sm `}
                   style={{ bottom: "55px", margin: "0 auto" }}
                 >
                   Playing around with UI design
-                </motion.span>
-              </motion.div>
-            </motion.div>
-          )}
-        </motion.div>
-      </AnimateSharedLayout>
-    );
-  };
-
-  const renderDynaway = () => {
-    return (
-      <AnimateSharedLayout>
-        <motion.div
-          ref={dynawayRef}
-          className={`${openDynaway ? "col-span-2" : "col-span-1"} `}
-        >
-          {openDynaway ? (
-            <motion.div
-              transition={{
-                type: "spring",
-                duration: 0.5,
-              }}
-              className={`${UIPlaygroundBackgroundColor}  font-body font-medium col-span-2 rounded-sm place-items-center w-full place-content-between flex`}
-              layoutId="expandable-card"
-            >
-              <AnimatePresence exitBeforeEnter>
-                <motion.div
-                  key="uipOpen"
-                  transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
-                  animate={{ opacity: 1 }}
-                  className={`opacity-0 w-2/3 h-full max-h-full rounded-sm flex my-auto ${UIPlaygroundBackgroundColor} ${textColorGrey900}`}
-                >
-                  <motion.div
-                    className={` w-full rounded-sm font-normal ${UIPlaygroundBackgroundColor} ${textColorGrey900} px-16 py-10 max-h-full`}
-                  >
-                    <motion.div
-                      className={`mb-20 ${UIPlaygroundBackgroundColor}`}
-                    >
-                      <FontAwesomeIcon
-                        icon={faTimes}
-                        size="1x"
-                        className={`${UIPlaygroundBackgroundColor} cursor-pointer`}
-                        onClick={() => setOpenDynaway(false)}
-                      />
-                    </motion.div>
-                    <motion.div className={`${UIPlaygroundBackgroundColor}`}>
-                      <motion.div
-                        className={`text-center mx-auto mb-12  ${UIPlaygroundBackgroundColor}`}
-                      >
-                        <img
-                          src={dynawayLogo}
-                          className={`${UIPlaygroundBackgroundColor} mx-auto w-48`}
-                          alt=""
-                        />
-                      </motion.div>
-                      <motion.div
-                        className={`${UIPlaygroundBackgroundColor}  font-normal font-body mb-4`}
-                      >
-                        As part of the Dynaway team I was one of two student UX
-                        designers.
-                      </motion.div>
-                      <motion.div
-                        className={`${UIPlaygroundBackgroundColor} font-normal font-body mb-4`}
-                      >
-                        At Dynaway my responsibilities included ideating new
-                        features, assisting the product manager, sketching,
-                        wireframing, prototyping in Figma, collaborating with
-                        the developers and more.
-                      </motion.div>
-                      <motion.div
-                        className={`${UIPlaygroundBackgroundColor} font-normal font-body mb-4`}
-                      >
-                        During my time at Dynaway I made many contributions such
-                        as improving existing products and ideating and
-                        prototyping entirely new products.
-                      </motion.div>
-                      <motion.div
-                        className={`${UIPlaygroundBackgroundColor} font-normal font-body mb-20`}
-                      >
-                        If you would like to know more about my role at Dynaway,
-                        please reach out.
-                      </motion.div>
-                    </motion.div>
-
-                    {/* <Link className={``} to="/craft">
-                      <motion.button
-                        whileHover={{ scale: 1.05, type: "spring" }}
-                        className={`shadow-lg bg-lightBlueVivid600 rounded-lg place-items-center ${textColorGrey050} flex mx-auto rounded-sm py-3 px-7 mt-12`}
-                      >
-                        <motion.span className={`bg-lightBlueVivid600`}>
-                          Explore
-                        </motion.span>
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          size="1x"
-                          className={`ml-4 bg-lightBlueVivid600`}
-                        />
-                      </motion.button>
-                    </Link> */}
-                  </motion.div>
-                </motion.div>
-
-                <motion.div
-                  className={`h-full flex place-content-center py-10 pr-12 rounded-r-sm ${UIPlaygroundBackgroundColor} `}
-                >
-                  <motion.div
-                    transition={{ opacity: 1 }}
-                    animate={{ opacity: 1 }}
-                    className={` opacity-0  items-start place-self-center  ${UIPlaygroundBackgroundColor} `}
-                  >
-                    <img
-                      src={dynawayMobile}
-                      width="270px"
-                      className={`${UIPlaygroundBackgroundColor} h-full`}
-                      alt=""
-                    />
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-            </motion.div>
-          ) : (
-            <motion.div
-              onClick={() => {
-                setOpenDynaway(true);
-              }}
-            >
-              <motion.div
-                variants={boxMotion}
-                initial="rest"
-                key="uipClosed"
-                whileHover="hover"
-                onClick={() => scrollToTargetAdjusted(dynawayRef)}
-                animate="rest"
-                layoutId="expandable-card"
-                className={`${UIPlaygroundBackgroundColor} relative cursor-pointer font-display h-96 rounded-sm flex place-content-center items-center`}
-              >
-                <motion.span variants={iconMotion}>
-                  {" "}
-                  <img
-                    src={dynawayLogo}
-                    className={`${UIPlaygroundBackgroundColor} w-48`}
-                    alt=""
-                  />{" "}
-                </motion.span>
-                <motion.span
-                  variants={textMotion}
-                  className={`absolute text-xl  mx-5 text-center font-semibold ${textColorGrey050} ${UIPlaygroundBackgroundColor} `}
-                  style={{ bottom: "90px", margin: "0 auto" }}
-                >
-                  Work experience
-                </motion.span>
-                <motion.span
-                  variants={textMotion}
-                  className={`absolute mx-10 ${UIPlaygroundBackgroundColor} text-center ${textColorGrey050} font-medium text-sm `}
-                  style={{ bottom: "55px", margin: "0 auto" }}
-                >
-                  Student UX designer
                 </motion.span>
               </motion.div>
             </motion.div>
@@ -590,7 +488,7 @@ const ProjectCards = () => {
       <AnimateSharedLayout>
         <motion.div
           ref={lumenRef}
-          className={` ${openLumen ? "col-span-2" : "col-span-1"}`}
+          className={` ${openLumen ? "lg:col-span-2" : "lg:col-span-1"}`}
         >
           {openLumen ? (
             <motion.div
@@ -598,7 +496,7 @@ const ProjectCards = () => {
                 type: "spring",
                 duration: 0.5,
               }}
-              className={`${lumenBackgroundColor}  font-body font-medium col-span-2 rounded-sm place-items-center w-full place-content-between flex`}
+              className={`${lumenBackgroundColor}  font-body font-light col-span-2 place-items-center w-full place-content-between lg:flex`}
               layoutId="expandable-card"
             >
               <AnimatePresence exitBeforeEnter>
@@ -606,10 +504,10 @@ const ProjectCards = () => {
                   key="lumenOpen"
                   transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
                   animate={{ opacity: 1 }}
-                  className={`opacity-0 w-2/3 h-full max-h-full rounded-sm font-normal flex my-auto ${lumenBackgroundColor} ${textColorGrey900}`}
+                  className={`opacity-0 mx-6 lg:w-2/3 h-full max-h-full flex my-auto ${touchlessBackgroundColor} ${textColorGrey900}`}
                 >
                   <motion.div
-                    className={`  rounded-sm ${lumenBackgroundColor} ${textColorGrey900} px-16 py-10 max-h-full`}
+                    className={`pt-6  h-full content-center ${touchlessBackgroundColor} ${textColorGrey900} lg:pl-16 lg:py-10 `}
                   >
                     <FontAwesomeIcon
                       icon={faTimes}
@@ -618,7 +516,7 @@ const ProjectCards = () => {
                       onClick={() => setOpenLumen(false)}
                     />
                     <motion.div
-                      className={`text-center ${lumenBackgroundColor} mb-6`}
+                      className={`text-center mt-4 ${lumenBackgroundColor} mb-6`}
                     >
                       <FontAwesomeIcon
                         icon={faPlug}
@@ -675,7 +573,10 @@ const ProjectCards = () => {
                       Planning and conducting a in-the-wild study, designing the
                       digital prototype, facilitating the design process
                     </motion.div>
-                    <Link className={``} to="/lumen">
+                    <Link
+                      className={`hidden ${lumenBackgroundColor} lg:block`}
+                      to="/lumen"
+                    >
                       <motion.button
                         whileHover={{ scale: 1.05, type: "spring" }}
                         className={`shadow-lg bg-yellowVivid500 place-items-center rounded-lg ${textColorGrey050} flex mx-auto rounded-sm py-3 px-7 mt-12`}
@@ -693,20 +594,40 @@ const ProjectCards = () => {
                   </motion.div>
                 </motion.div>
                 <motion.div
-                  className={`h-full flex place-content-center py-10 pr-16 rounded-r-sm ${lumenBackgroundColor} `}
+                  className={`h-full lg:flex place-content-center py-10 lg:pr-16 ${lumenBackgroundColor} `}
                 >
                   <motion.div
                     transition={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    className={` opacity-0 items-start place-self-center   ${lumenBackgroundColor} `}
+                    className={` opacity-0 items-start justify-center flex place-self-center   ${lumenBackgroundColor} `}
                   >
-                    <img
-                      src={lumen_1}
-                      width="250px"
-                      className={`${lumenBackgroundColor} h-full`}
-                      alt=""
-                    />
+                    <Zoom
+                      overlayBgColorEnd="#0c0c0c"
+                      overlayBgColorStart="#0c0c0c"
+                    >
+                      <img
+                        src={lumen_1}
+                        width="300px"
+                        className={`${lumenBackgroundColor} px-5 mx-auto h-full`}
+                        alt=""
+                      />
+                    </Zoom>
                   </motion.div>
+                  <Link className={`lg:hidden`} to="/lumen">
+                    <motion.button
+                      whileHover={{ scale: 1.05, type: "spring" }}
+                      className={`shadow-lg bg-yellowVivid500 place-items-center rounded-lg ${textColorGrey050} flex mx-auto rounded-sm py-3 px-7 mt-12`}
+                    >
+                      <motion.span className={`bg-yellowVivid500`}>
+                        Read more
+                      </motion.span>
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        size="1x"
+                        className={`ml-4 bg-yellowVivid500`}
+                      />
+                    </motion.button>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -720,7 +641,7 @@ const ProjectCards = () => {
                 onClick={() => scrollToTargetAdjusted(lumenRef)}
                 animate="rest"
                 layoutId="expandable-card"
-                className={`relative cursor-pointer h-96 font-display rounded-sm ${lumenBackgroundColor} flex place-content-center items-center`}
+                className={`relative cursor-pointer h-72 lg:h-96 font-display ${lumenBackgroundColor} flex place-content-center items-center`}
               >
                 {/* <span
                   ref={lumenRef}
@@ -737,18 +658,165 @@ const ProjectCards = () => {
                 </motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute text-xl  ${lumenBackgroundColor} mx-5 ${textColorGrey050} text-center font-bold`}
+                  className={`hidden lg:block absolute text-xl  ${lumenBackgroundColor} mx-5 ${textColorGrey050} text-center font-bold`}
                   style={{ bottom: "90px", margin: "0 auto" }}
                 >
                   Sustainable use of electricity
                 </motion.span>
                 <motion.span
                   variants={textMotion}
-                  className={`absolute mx-10 ${lumenBackgroundColor} text-center ${textColorGrey050} font-medium text-sm`}
-                  style={{ bottom: "55px", margin: "0 auto" }}
+                  className={`hidden lg:block absolute mx-10 ${lumenBackgroundColor} text-center ${textColorGrey050} font-medium text-sm`}
+                  style={{ bottom: "50px", margin: "0 auto" }}
                 >
                   Ever thought about the environment when you charge your
                   iPhone?
+                </motion.span>
+              </motion.div>
+            </motion.div>
+          )}
+        </motion.div>
+      </AnimateSharedLayout>
+    );
+  };
+
+  const renderDynaway = () => {
+    return (
+      <AnimateSharedLayout>
+        <motion.div
+          ref={dynawayRef}
+          className={`${openDynaway ? "lg:col-span-2" : "lg:col-span-1"} `}
+        >
+          {openDynaway ? (
+            <motion.div
+              transition={{
+                type: "spring",
+                duration: 0.5,
+              }}
+              className={`${UIPlaygroundBackgroundColor}  font-body font-light col-span-2 place-items-center w-full place-content-between lg:flex`}
+              layoutId="expandable-card"
+            >
+              <AnimatePresence exitBeforeEnter>
+                <motion.div
+                  key="uipOpen"
+                  transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
+                  animate={{ opacity: 1 }}
+                  className={`opacity-0 lg:w-2/3 mx-6 lg:mx-0 h-full max-h-full flex my-auto ${UIPlaygroundBackgroundColor} ${textColorGrey900}`}
+                >
+                  <motion.div
+                    className={`pt-6  h-full content-center ${touchlessBackgroundColor} ${textColorGrey900} lg:pl-20 lg:py-10 `}
+                  >
+                    <motion.div
+                      className={`mb-8 lg:mb-12 ${UIPlaygroundBackgroundColor}`}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTimes}
+                        size="1x"
+                        className={`${UIPlaygroundBackgroundColor} cursor-pointer`}
+                        onClick={() => setOpenDynaway(false)}
+                      />
+                    </motion.div>
+                    <motion.div className={`${UIPlaygroundBackgroundColor}`}>
+                      <motion.div
+                        className={`text-center mx-auto mb-12  ${UIPlaygroundBackgroundColor}`}
+                      >
+                        <img
+                          src={dynawayLogo}
+                          className={`${UIPlaygroundBackgroundColor} mx-auto w-48`}
+                          alt=""
+                        />
+                      </motion.div>
+                      <motion.div
+                        className={`${UIPlaygroundBackgroundColor} font-body mb-4`}
+                      >
+                        As part of the Dynaway team I was one of two student UX
+                        designers.
+                      </motion.div>
+                      <motion.div
+                        className={`${UIPlaygroundBackgroundColor} font-body mb-4`}
+                      >
+                        At Dynaway my responsibilities included ideating new
+                        features, assisting the product manager, sketching,
+                        wireframing, prototyping in Figma, collaborating with
+                        the developers and more.
+                      </motion.div>
+                      <motion.div
+                        className={`${UIPlaygroundBackgroundColor} font-body mb-4`}
+                      >
+                        During my time at Dynaway I made many contributions such
+                        as improving existing products and ideating and
+                        prototyping entirely new products.
+                      </motion.div>
+                      <motion.div
+                        className={`${UIPlaygroundBackgroundColor} font-body mb-4 lg:mb-20`}
+                      >
+                        If you would like to know more about my role at Dynaway,
+                        please reach out.
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+
+                <motion.div
+                  className={`h-full flex place-content-center pb-4 lg:py-10 lg:pr-12 ${UIPlaygroundBackgroundColor} `}
+                >
+                  <motion.div
+                    transition={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
+                    className={` opacity-0 ${UIPlaygroundBackgroundColor} `}
+                  >
+                    <Zoom
+                      overlayBgColorEnd="#0c0c0c"
+                      overlayBgColorStart="#0c0c0c"
+                      className="mx-auto"
+                    >
+                      <img
+                        src={dynawayMobile}
+                        width="270px"
+                        className={`${UIPlaygroundBackgroundColor} h-full`}
+                        alt=""
+                      />
+                    </Zoom>
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          ) : (
+            <motion.div
+              onClick={() => {
+                setOpenDynaway(true);
+              }}
+            >
+              <motion.div
+                variants={boxMotion}
+                initial="rest"
+                key="uipClosed"
+                whileHover="hover"
+                onClick={() => scrollToTargetAdjusted(dynawayRef)}
+                animate="rest"
+                layoutId="expandable-card"
+                className={`${UIPlaygroundBackgroundColor} relative cursor-pointer font-display h-72 lg:h-96 flex place-content-center items-center`}
+              >
+                <motion.span variants={iconMotion}>
+                  {" "}
+                  <img
+                    src={dynawayLogo}
+                    className={`${UIPlaygroundBackgroundColor} w-48`}
+                    alt=""
+                  />
+                </motion.span>
+                <motion.span
+                  variants={textMotion}
+                  className={`hidden lg:block absolute text-xl  mx-5 text-center font-semibold ${textColorGrey050} ${UIPlaygroundBackgroundColor} `}
+                  style={{ bottom: "90px", margin: "0 auto" }}
+                >
+                  Work experience
+                </motion.span>
+                <motion.span
+                  variants={textMotion}
+                  className={`hidden lg:block absolute mx-10 ${UIPlaygroundBackgroundColor} text-center ${textColorGrey050} font-medium text-sm `}
+                  style={{ bottom: "55px", margin: "0 auto" }}
+                >
+                  Student UX designer
                 </motion.span>
               </motion.div>
             </motion.div>
@@ -763,7 +831,7 @@ const ProjectCards = () => {
       <AnimateSharedLayout>
         <motion.div
           ref={fixdRef}
-          className={` ${openFixD ? "col-span-2" : "col-span-1"}`}
+          className={` ${openFixD ? "lg:col-span-2" : "lg:col-span-1"}`}
         >
           {openFixD ? (
             <motion.div
@@ -771,7 +839,7 @@ const ProjectCards = () => {
                 type: "spring",
                 duration: 0.5,
               }}
-              className={`${lumenBackgroundColor}  font-body font-medium col-span-2 rounded-sm place-items-center w-full place-content-between flex`}
+              className={`${lumenBackgroundColor}  font-body font-light col-span-2 place-items-center w-full place-content-between lg:flex`}
               layoutId="expandable-card"
             >
               <AnimatePresence exitBeforeEnter>
@@ -779,10 +847,10 @@ const ProjectCards = () => {
                   key="lumenOpen"
                   transition={{ delay: 0.4, opacity: 1, duration: 0.2 }}
                   animate={{ opacity: 1 }}
-                  className={`opacity-0 w-2/3 h-full max-h-full rounded-sm font-normal flex my-auto ${lumenBackgroundColor} ${textColorGrey900}`}
+                  className={`opacity-0 mx-6 lg:w-2/3 h-full max-h-full flex my-auto ${touchlessBackgroundColor} ${textColorGrey900}`}
                 >
                   <motion.div
-                    className={`  rounded-sm ${lumenBackgroundColor} ${textColorGrey900} px-16 py-10 max-h-full`}
+                    className={`pt-6  h-full content-center ${touchlessBackgroundColor} ${textColorGrey900} lg:pl-16 lg:py-10 `}
                   >
                     <FontAwesomeIcon
                       icon={faTimes}
@@ -791,22 +859,27 @@ const ProjectCards = () => {
                       onClick={() => setOpenFixD(false)}
                     />
                     <motion.div
-                      className={`text-center mx-auto mb-4  ${UIPlaygroundBackgroundColor}`}
+                      className={`text-center mx-auto mt-4 mb-4  ${UIPlaygroundBackgroundColor}`}
                     >
-                      <img
-                        src={fixdLogo}
-                        className={`${UIPlaygroundBackgroundColor} mx-auto w-32`}
-                        alt=""
-                      />
+                      <Zoom
+                        overlayBgColorEnd="#0c0c0c"
+                        overlayBgColorStart="#0c0c0c"
+                      >
+                        <img
+                          src={fixdLogo}
+                          className={`${UIPlaygroundBackgroundColor} mx-auto w-32`}
+                          alt=""
+                        />
+                      </Zoom>
                     </motion.div>
 
                     <motion.div
-                      className={`${lumenBackgroundColor} font-body font-normal mb-4 `}
+                      className={`${lumenBackgroundColor} font-body mb-4 `}
                     >
                       I am a co-founder and previous chairman of FixD.
                     </motion.div>
                     <motion.div
-                      className={`${lumenBackgroundColor} font-body font-normal mb-4 `}
+                      className={`${lumenBackgroundColor} font-body mb-4 `}
                     >
                       Interaction Design is a fairly new education at AAU. To
                       create a strong physical and mental student environment
@@ -817,14 +890,14 @@ const ProjectCards = () => {
                       and more.
                     </motion.div>
                     <motion.div
-                      className={`${lumenBackgroundColor} font-body font-normal mb-4`}
+                      className={`${lumenBackgroundColor} font-body mb-4`}
                     >
                       Being a part of creating the association and hold events
                       has given me plenty of experience in planning,
                       coordinating and executing gatherings of many sizes.
                     </motion.div>
                     <motion.div
-                      className={`${lumenBackgroundColor} mb-10  font-body font-normal`}
+                      className={`${lumenBackgroundColor} lg:mb-10  font-body`}
                     >
                       Personally, FixD has been a place for me to meet a lot of
                       great people and enjoy great times.
@@ -832,19 +905,24 @@ const ProjectCards = () => {
                   </motion.div>
                 </motion.div>
                 <motion.div
-                  className={`h-full flex place-content-center py-10 pr-16 rounded-r-sm ${lumenBackgroundColor} `}
+                  className={`h-full flex place-content-center py-10 lg:pr-16 ${lumenBackgroundColor} `}
                 >
                   <motion.div
                     transition={{ opacity: 1 }}
                     animate={{ opacity: 1 }}
-                    className={` opacity-0 items-start place-self-center mt-12   ${lumenBackgroundColor} `}
+                    className={` opacity-0 items-start px-5 place-self-center lg:mt-12   ${lumenBackgroundColor} `}
                   >
-                    <img
-                      src={ixdexpo}
-                      width="550px"
-                      className={`${lumenBackgroundColor} rounded-lg h-full`}
-                      alt=""
-                    />
+                    <Zoom
+                      overlayBgColorEnd="#0c0c0c"
+                      overlayBgColorStart="#0c0c0c"
+                    >
+                      <img
+                        src={ixdexpo}
+                        width="550px"
+                        className={`${lumenBackgroundColor} rounded-lg mx-auto h-full`}
+                        alt=""
+                      />
+                    </Zoom>
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
@@ -859,7 +937,7 @@ const ProjectCards = () => {
                 onClick={() => scrollToTargetAdjusted(fixdRef)}
                 animate="rest"
                 layoutId="expandable-card"
-                className={`relative cursor-pointer h-96 font-display rounded-sm ${lumenBackgroundColor} flex place-content-center items-center`}
+                className={`relative cursor-pointer h-72 lg:h-96 font-display ${lumenBackgroundColor} flex place-content-center items-center`}
               >
                 {/* <span
                   ref={lumenRef}
@@ -868,21 +946,26 @@ const ProjectCards = () => {
                 ></span> */}
                 <motion.span
                   variants={iconMotion}
-                  className={`${UIPlaygroundBackgroundColor}`}
+                  className={`${UIPlaygroundBackgroundColor} `}
                   // initial="rest"
                   // whileHover="rest"
                   // animate="rest"
                 >
-                  <img
-                    src={fixdLogo}
-                    className={`${UIPlaygroundBackgroundColor}  mx-auto w-48`}
-                    alt=""
-                  />
+                  <Zoom
+                    overlayBgColorEnd="#0c0c0c"
+                    overlayBgColorStart="#0c0c0c"
+                  >
+                    <img
+                      src={fixdLogo}
+                      className={`${UIPlaygroundBackgroundColor}  mx-auto w-48`}
+                      alt=""
+                    />
+                  </Zoom>
                 </motion.span>
 
                 <motion.span
                   variants={textMotion}
-                  className={`absolute mx-10 ${lumenBackgroundColor} text-center ${textColorGrey050} font-medium text-sm`}
+                  className={`hidden lg:block absolute  mx-10 ${lumenBackgroundColor} text-center ${textColorGrey050} font-medium text-sm`}
                   style={{ bottom: "80px", margin: "0 auto" }}
                 >
                   Association for Interaction Design students at AAU
@@ -896,8 +979,8 @@ const ProjectCards = () => {
   };
 
   return (
-    <div className="mb-32">
-      <div className=" grid-cols-2 grid gap-4">
+    <div className="mb-20">
+      <div className="grid-cols-1 grid gap-8 lg:grid-cols-2 lg:gap-4">
         {renderTouchlessInteractions()}
         {renderUIPlayground()}
         {renderLumen()}

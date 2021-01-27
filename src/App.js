@@ -12,54 +12,59 @@ import Garden from "./Garden";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import { Fragment } from "react";
-import NoPhone from "./NoPhone";
 import { polyfill } from "seamless-scroll-polyfill";
+import NavMobile from "./NavMobile";
 polyfill();
 
 function App() {
   return (
-    <div className={`app  max-w-screen-lg mx-auto`}>
-      <div className="lg:block hidden">
-        <Router>
-          <Fragment>
-            <ScrollToTop>
+    <div className={`app max-w-screen-lg mx-auto`}>
+      {/* <div className="lg:block hidden"> */}
+      <Router>
+        <Fragment>
+          <ScrollToTop>
+            <div className="lg:hidden">
+              <NavMobile />
+            </div>
+            <div className="hidden lg:block">
               <Nav />
-              <Switch>
-                <Route path="/about">
-                  <About />
-                </Route>
+            </div>
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
 
-                <Route path="/resume">
-                  <Resume />
-                </Route>
+              <Route path="/resume">
+                <Resume />
+              </Route>
 
-                <Route path="/touchlessInteractions">
-                  <TouchlessInteractions />
-                </Route>
-                <Route path="/craft">
-                  <UIPlayground />
-                </Route>
-                <Route path="/garden">
-                  <Garden />
-                </Route>
-                <Route path="/lumen">
-                  <Lumen />
-                </Route>
+              <Route path="/touchlessInteractions">
+                <TouchlessInteractions />
+              </Route>
+              <Route path="/craft">
+                <UIPlayground />
+              </Route>
+              <Route path="/garden">
+                <Garden />
+              </Route>
+              <Route path="/lumen">
+                <Lumen />
+              </Route>
 
-                <Route path="/">
-                  <Home />
-                  {/* <Lumen /> */}
-                  <ProjectCards />
-                </Route>
-              </Switch>
-              <Footer />
-            </ScrollToTop>
-          </Fragment>
-        </Router>
-      </div>
-      <div className="lg:hidden">
+              <Route path="/">
+                <Home />
+                {/* <Lumen /> */}
+                <ProjectCards />
+              </Route>
+            </Switch>
+            <Footer />
+          </ScrollToTop>
+        </Fragment>
+      </Router>
+      {/* </div> */}
+      {/* <div className="lg:hidden">
         <NoPhone />
-      </div>
+      </div> */}
     </div>
   );
 }

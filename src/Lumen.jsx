@@ -11,17 +11,16 @@ import lumen_8 from "./images/lumen_8.png";
 import lumen_heatmap from "./images/lumen_heatmap.png";
 import lumen_analysis from "./images/lumen_analysis.png";
 import lumen_figma from "./images/lumen_figma.png";
-
 import lumen_process from "./images/lumen_process.png";
 import ScrollElement from "./ScrollElement";
 
 const Lumen = () => {
   return (
-    <div className="w-full px-24 justify-center flex  mb-52 font-light text-coolGrey200 font-body">
-      <div className="mt-24 ">
+    <div className="w-full lg:px-24 justify-center flex  mb-52 font-light text-coolGrey200 font-body">
+      <ScrollElement strokeColor={"#F7C948"} />
+      <div className="mt-24 w-full">
         {/* <div className="w-full flex justify-center mb-40 min-w-full font-normal text-coolGrey900 font-display"> */}
         {/* <div className="sm:mx-10 md:mx-20 lg:mx-36 xl:mx-44 mt-24 relative"> */}
-        <ScrollElement strokeColor={"#F7C948"} />
         <div className="text-xl text-coolGrey400 font-medium font-display">
           Overview
         </div>
@@ -35,7 +34,7 @@ const Lumen = () => {
           fluctuates during the day. Can small communities help each other hit
           the sweet spot?
         </div>
-        <div className="grid grid-cols-2 w-1/2 mt-16">
+        <div className="grid grid-cols-2 lg:w-1/2 mt-10 lg:mt-16">
           <div className="font-semibold text-xl font-display  mb-2 text-coolGrey300">
             Role
           </div>
@@ -59,7 +58,7 @@ const Lumen = () => {
           prototype, facilitating the design process
         </div>
         <div>
-          <span className={` italic block my-8`}>
+          <span className={` italic text-lg block my-8`}>
             This work is published at the{" "}
             <a
               href="https://vbn.aau.dk/da/publications/lumen-a-case-study-of-designing-for-sustainable-energy-communitie"
@@ -114,12 +113,12 @@ const Lumen = () => {
           beneficial.
         </div>
         <div className="flex justify-center  mb-2">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_6} className="" width="500px" alt="sketches" />
           </Zoom>
         </div>
         <div className="flex justify-center  mb-6">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_7} className="" width="500px" alt="sketches" />
           </Zoom>
         </div>
@@ -134,7 +133,7 @@ const Lumen = () => {
           electricity sustainability is visualized by a green or red background.
         </div>
         <div className="flex justify-center  mb-6">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img
               src={lumen_5}
               className="bg-coolGrey050"
@@ -157,7 +156,7 @@ const Lumen = () => {
           you through our process.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_process} className="" width="500px" alt="process" />
           </Zoom>
         </div>
@@ -171,7 +170,7 @@ const Lumen = () => {
           ideas and built upon each others conceptual ideas.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_2} className="" width="400px" alt="process" />
           </Zoom>
         </div>
@@ -184,7 +183,7 @@ const Lumen = () => {
           concept we saw most potential in.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_heatmap} className="" width="400px" alt="process" />
           </Zoom>
         </div>
@@ -196,7 +195,7 @@ const Lumen = () => {
           prototype.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_figma} className="" width="600px" alt="process" />
           </Zoom>
         </div>
@@ -207,7 +206,7 @@ const Lumen = () => {
           At this point in our education, the prototype was technically complex.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_8} className="" width="600px" alt="process" />
           </Zoom>
         </div>
@@ -228,7 +227,7 @@ const Lumen = () => {
           done to keep it simple and easily interpretable.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_7} className="" width="600px" alt="process" />
           </Zoom>
         </div>
@@ -246,7 +245,7 @@ const Lumen = () => {
           use sustainable electricity.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img src={lumen_1} className="" width="200px" alt="process" />
           </Zoom>
         </div>
@@ -276,7 +275,7 @@ const Lumen = () => {
           thematically cluster insights.
         </div>
         <div className="flex justify-center my-16">
-          <Zoom>
+          <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
             <img
               src={lumen_analysis}
               className=""
@@ -303,6 +302,7 @@ const Lumen = () => {
           "I think "do we have a phone that needs power" when I see the
           [physical prototype] lights on"
         </div>
+        <div className="border border-coolGrey800 border-opacity-25 w-2/3 mx-auto mt-20 mb-20"></div>
         <div className="text-xl text-coolGrey400 font-medium">Takeaway</div>
         <div className="text-xl mt-4 leading-relaxed">
           In my bachelor's thesis I especially learnt how to set up a study from
@@ -311,83 +311,6 @@ const Lumen = () => {
           insights. I spent a large amount of time iterating on designs and
           building the prototype, improving my prototyping skills.
         </div>
-        {/*
-        <div className="text-2xl font-medium mb-2">Design process</div>
-        <div className="mb-6">
-          We used the forced relationship method to ideate. It had us take two
-          seemingly unrelated items and pair them to create a concept that fit
-          our problem. A few interesting concepts arose from this activity. We
-          further explored these in a 10:10 sketching round. Presenting these to
-          each other we agreed on both a physical and a digital prototype
-          concept to accommodate our problem space. To guide our efforts, we
-          created a user journey.
-        </div>
-
-        <div className="flex justify-center  mb-6">
-          <Zoom>
-            <img src={lumen_2} className="" width="350px" alt="sketches" />
-          </Zoom>
-        </div>
-
-        <div className="text-2xl font-medium mb-2 ">Prototypes</div>
-
-        
-
-       
-
-        <div className="mb-6">
-          Our solution draws on both a database, smartplugs and an energy data
-          service API. Communication with all these endpoints and the two
-          prototypes was handled by a REST API.
-        </div>
-        <div className="flex justify-center  mb-6">
-          <Zoom>
-            <img src={lumen_8} className="" width="500px" alt="sketches" />
-          </Zoom>
-        </div>
-
-        <div className="text-2xl font-medium mb-2 ">Results</div>
-        <div className="mb-6">
-          The participants in the study showed a collective awareness of being
-          in an energy community, where they started to update themselves on
-          their own energy consumption patterns in relation to others. The
-          physical prototype served as an effective reminder of being
-          sustainable – more so than an app on their iPhone might’ve done.
-          Participants, interestingly, also started monitoring each other,
-          seeing if they were spending a lot of unsustainable energy, which
-          would have consequence for the shared statistics of energy
-          consumption.
-        </div>
-
-        <div className="text-2xl font-medium mb-2 ">
-          Challenges and takeaways
-        </div>
-
-        <div className="p-4 bg-yellowVivid200 w-full rounded-md mb-8">
-          <ul className="list-disc list-inside bg-yellowVivid200 rounded-lg">
-            <li className="bg-yellowVivid200 mb-2 ">
-              The rigidity of a physical prototype is of special importance when
-              you deploy it in a real-life setting
-            </li>
-            <li className="bg-yellowVivid200 mb-2">
-              It is important to choose ideation techniques according to the
-              team and the problem space
-            </li>
-            <li className="bg-yellowVivid200 mb-2">
-              Skill in asking open-ended explorative questions is very valuable
-            </li>
-            <li className="bg-yellowVivid200 mb-2">
-              Experience with presenting work at a scientific conference
-            </li>
-            <li className="bg-yellowVivid200 mb-2">
-              Further improving UI design skills and experience with Figma
-            </li>
-            <li className="bg-yellowVivid200 ">
-              Design feedback sessions can provide constructive and useful
-              feedback
-            </li>
-          </ul>
-        </div> */}
       </div>
     </div>
   );
