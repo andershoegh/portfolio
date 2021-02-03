@@ -53,7 +53,6 @@ function App() {
 
               <Route path="/">
                 <Home />
-                {/* <Lumen /> */}
                 <ProjectCards />
               </Route>
             </Switch>

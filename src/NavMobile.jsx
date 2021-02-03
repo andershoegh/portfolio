@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const sidebar = {
   open: (height = 1000) => ({
-    clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+    clipPath: `circle(${height - (100 % +300)}px at calc(100% - 50px) 50px)`,
     transition: {
       type: "spring",
       stiffness: 20,
@@ -18,7 +18,7 @@ const sidebar = {
     },
   }),
   closed: {
-    clipPath: "circle(30px at 40px 40px)",
+    clipPath: `circle(30px at calc(100% - 50px) 50px`,
     transition: {
       delay: 0.5,
       type: "spring",
@@ -30,23 +30,23 @@ const sidebar = {
 
 const variants = {
   open: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
   },
   closed: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    transition: { staggerChildren: 0.1, staggerDirection: -1 },
   },
 };
 
 const variantsMenuItem = {
   open: {
-    y: 0,
+    y: 30,
     opacity: 1,
     transition: {
-      y: { stiffness: 1000, velocity: -100 },
+      y: { stiffness: 1000, velocity: 100 },
     },
   },
   closed: {
-    y: 50,
+    y: -30,
     opacity: 0,
     transition: {
       y: { stiffness: 1000 },
@@ -63,7 +63,7 @@ const NavMobile = () => {
   console.log(isOpen);
   return (
     <motion.nav
-      className={`fixed top-0 z-50 right-0  w-full bg-transparent`}
+      className={`z-50 fixed w-full bg-transparent`}
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
@@ -71,14 +71,12 @@ const NavMobile = () => {
     >
       <motion.div
         variants={sidebar}
-        className={`fixed top-0 right-0 bottom-0 w-screen  ${
-          isOpen ? "z-50" : "z-0"
-        } bg-coolGrey100 `}
+        className={`fixed top-0 left-0 bottom-0 w-screen  bg-coolGrey100 `}
       >
         {isOpen && (
           <>
             <motion.ul
-              className={`${bg} absolute top-28 w-full list-disc text-center`}
+              className={`${bg} w-full mt-48 list-disc text-center`}
               variants={variants}
             >
               <Link
@@ -88,17 +86,17 @@ const NavMobile = () => {
                 }}
               >
                 <motion.li
-                  className={`${bg} text-4xl text-coolGrey800 mt-10`}
+                  className={`${bg} text-4xl text-coolGrey800 p-6 focus:outline-none`}
                   variants={variantsMenuItem}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Work
+                  Projects
                 </motion.li>
               </Link>
               <Link to="/about" onClick={() => toggleOpen(false)}>
                 <motion.li
-                  className={`${bg} text-4xl text-coolGrey800 mt-10`}
+                  className={`${bg} text-4xl text-coolGrey800 p-6 focus:outline-none`}
                   variants={variantsMenuItem}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -108,7 +106,7 @@ const NavMobile = () => {
               </Link>
               <Link to="/resume" onClick={() => toggleOpen(false)}>
                 <motion.li
-                  className={`${bg} text-4xl text-coolGrey800 mt-10`}
+                  className={`${bg} text-4xl text-coolGrey800 p-6 focus:outline-none`}
                   variants={variantsMenuItem}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -117,7 +115,7 @@ const NavMobile = () => {
                 </motion.li>
               </Link>
               <motion.li
-                className={`${bg} text-4xl text-coolGrey800 mt-32`}
+                className={`${bg} text-4xl text-coolGrey800 mt-20`}
                 variants={variantsMenuItem}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -149,7 +147,8 @@ const NavMobile = () => {
             </motion.ul>
           </>
         )}
-        <MenuToggle toggle={() => toggleOpen()} />
+
+        <MenuToggle className="z-50" toggle={() => toggleOpen()} />
       </motion.div>
     </motion.nav>
   );

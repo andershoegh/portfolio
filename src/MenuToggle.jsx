@@ -15,8 +15,8 @@ export const MenuToggle = ({ toggle }) => (
   <button
     onClick={toggle}
     style={{
-      top: "17px",
-      left: "28px",
+      top: "27px",
+      right: `11px`,
       width: "50px",
       height: "50px",
     }}

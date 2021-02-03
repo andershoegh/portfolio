@@ -4,7 +4,7 @@ import picture from "./images/self.jpg";
 const About = () => {
   return (
     <div className=" w-full  justify-center">
-      <div className="lg:mx-24 mx-2 mt-32 lg:mt-24 mb-16 font-light leading-relaxed text-coolGrey100">
+      <div className="lg:mx-24 mx-2  mt-36 lg:mt-24 mb-16 font-light leading-relaxed text-coolGrey100">
         <div className="text-center  font-display text-5xl font-bold mb-16">
           👋🏼 Hey!
         </div>
@@ -21,7 +21,7 @@ const About = () => {
               skills.
             </div>
             <div className="mb-4">
-              I don't believe I communicate the true "Anders" in this about
+              I don't believe I can communicate the true "Anders" in this about
               page. I hope you'll shoot me a mail or message on LinkedIn so that
               you can get to know me more!
             </div>
@@ -39,7 +39,7 @@ const About = () => {
           <div className="">
             <img
               src={picture}
-              className="p-8 justify-center mx-auto rounded-lg block "
+              className="p-6 justify-center mx-auto rounded-lg block "
               alt="Profile"
             />
           </div>

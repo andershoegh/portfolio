@@ -42,7 +42,7 @@ const Nav = () => {
                 onClick={() => setSelected("Work")}
                 className="font-normal cursor-pointer  relative text-coolGrey300 m-2 px-6   focus:outline-none"
               >
-                Work
+                Projects
               </Link>
               {selected === "Work" && (
                 <motion.span

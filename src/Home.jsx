@@ -6,7 +6,7 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 const Home = () => {
   return (
     <div className="text-xl font-light font-display text-center text-coolGrey100">
-      <div className=" mt-52 lg:mt-40 text-6xl lg:text-8xl font-bold mb-5">
+      <div className=" mt-64 lg:mt-40 text-6xl lg:text-8xl font-bold mb-5">
         'Ello
       </div>
       <div className="text-3xl mb-48 lg:mb-60">

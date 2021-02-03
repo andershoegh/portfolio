@@ -5,7 +5,7 @@ import Zoom from "react-medium-image-zoom";
 const Resume = () => {
   return (
     <>
-      <div className="flex justify-center mt-24 lg:mt-32">
+      <div className="flex justify-center mt-36 lg:mt-32">
         <Zoom overlayBgColorEnd="#0c0c0c" overlayBgColorStart="#0c0c0c">
           <img className=" rounded-sm" alt="resume" src={cv}></img>
         </Zoom>

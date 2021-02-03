@@ -61,7 +61,7 @@ const TouchlessInteractions = () => {
           self-checkout lines and much more. COVID-19 presents a challenge to
           these displays, because we've come to rely on them for daily tasks.
           Keeping the spread of COVID-19 to a minimum is a global challenge. In
-          this project we work wih:
+          this project we work with:
         </div>
         <div className="text-3xl font-display font-semibold mt-8 text-redVivid400">
           How might we...
